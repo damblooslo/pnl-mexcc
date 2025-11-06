@@ -3,9 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>MEXC PNL 4-line Template</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -15,11 +12,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       background: #000;
       font-family: 'Inter', Arial, sans-serif;
       color: #fff;
-      min-height: 100vh;
       padding: 20px;
     }
 
@@ -30,7 +25,6 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      background-color: #000;
       position: relative;
       overflow: hidden;
     }
@@ -44,70 +38,64 @@
 
     .date-shared {
       position: absolute;
-      top: 7.9%;
-      left: 19.4%;
+      top: 110px;
+      left: 230px;
       font-size: 28px;
       color: #6E7684;
-      letter-spacing: 0.035em;
-      white-space: nowrap;
+      letter-spacing: 0.045em;
     }
 
     .date-range {
       position: absolute;
-      top: 39.5%;
-      left: 4.2%;
+      top: 550px;
+      left: 50px;
       font-size: 28px;
       color: #6E7684;
-      letter-spacing: 0.035em;
-      white-space: nowrap;
+      letter-spacing: 0.045em;
     }
 
     .percent {
       position: absolute;
-      top: 46.3%;
-      left: 4.2%;
+      top: 645px;
+      left: 50px;
       font-size: 75px;
       color: #00BF67;
       font-weight: 700;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
+      letter-spacing: 0.04em;
     }
 
     .usdt {
       position: absolute;
-      top: 53.6%;
-      left: 4.2%;
+      top: 746px;
+      left: 50px;
       font-size: 45px;
       color: #00BF67;
       font-weight: 600;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
+    }
+
+    .refText {
+      position: absolute;
+      top: 1236px;
+      left: 458px;
+      font-size: 45px;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+      color: #fff;
       white-space: nowrap;
     }
 
-    /* ✅ Реферальный код — пропорционально */
-   #refText {
-  position: absolute;
-  left: calc(470 / 1188 * 100%);
-  top: calc(1230 / 1392 * 100%);
-  font-size: 45px;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-}
-
-#qrImg {
-  position: absolute;
-  left: calc(1020 / 1188 * 100%);
-  top: calc(1190 / 1392 * 100%);
-  width: calc(144 / 1188 * 100%);
-  height: auto;
-}
-
+    #qrImg {
+      position: absolute;
+      width: 144px;
+      height: 144px;
+      right: 48px;
+      bottom: 48px;
+    }
 
     .controls {
       margin-top: 20px;
-      width: 100%;
-      max-width: 1188px;
+      width: 1188px;
       background: #111;
       padding: 15px;
       border-radius: 10px;
@@ -119,41 +107,30 @@
     label { font-size: 14px; color: #bbb; }
 
     input, select {
-      width: 100%;
       background: #1a1a1a;
       border: 1px solid #333;
       color: #0f0;
-      padding: 10px;
+      padding: 8px;
       border-radius: 6px;
-      font-size: 18px;
+      font-size: 16px;
       outline: none;
     }
 
     button {
       background: #00bfff;
       border: none;
-      padding: 12px;
+      padding: 10px;
       border-radius: 8px;
       color: white;
       font-weight: bold;
       cursor: pointer;
       margin-top: 5px;
-      width: 100%;
-      font-size: 18px;
     }
     button:hover { background: #0099cc; }
 
-    /* ✅ Адаптация под телефоны */
-    @media (max-width: 600px) {
-      #card {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1188 / 1392;
-      }
-      input, select, button { font-size: 16px; }
-    }
   </style>
 </head>
+
 <body>
 
   <div id="card">
@@ -163,11 +140,11 @@
       <div class="percent" id="percent"></div>
       <div class="usdt" id="usdt"></div>
 
-      <!-- ✅ Реферальный код на фоне -->
-      <div id="refText"></div>
+      <!-- текст реф.кода -->
+      <div class="refText" id="refText"></div>
 
-      <!-- ✅ QR на фоне -->
-      <img id="qrImg" src="">
+      <!-- QR -->
+      <img id="qrImg" src="" alt="">
     </div>
   </div>
 
@@ -185,7 +162,7 @@
     <input id="inputUSDT" placeholder="+23 428,24 USDT">
 
     <label>Реферальный код (1–12)</label>
-    <select id="inputRef">
+    <select id="refSelect">
       <option value="1fq51">1</option>
       <option value="1uoHK">2</option>
       <option value="1RWKx">3</option>
@@ -211,9 +188,10 @@
       document.getElementById('percent').innerText = document.getElementById('inputPercent').value;
       document.getElementById('usdt').innerText = document.getElementById('inputUSDT').value;
 
-      const ref = document.getElementById('inputRef').value;
-      document.getElementById('refText').innerText = ref.toUpperCase();
-      document.getElementById('qrImg').src = "./" + ref + ".png";
+      const selected = document.getElementById('refSelect').value;
+      document.getElementById('refText').innerText = selected;
+
+      document.getElementById('qrImg').src = selected + ".png";
     }
 
     function takeScreenshot() {
@@ -225,5 +203,6 @@
       });
     }
   </script>
+
 </body>
 </html>
